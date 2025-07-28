@@ -1,5 +1,5 @@
 from secret_stuff import OWNER, REPO, GITHUB_TOKEN
-import requests
+import requests, os
 
 url = f"https://api.github.com/repos/{OWNER}/{REPO}/releases/latest"
 
@@ -17,7 +17,15 @@ def check_latest_github_version(current_version):
         
         if latest_version != current_version:
             print(f"New version available: {latest_version} (Current: {current_version})")
-            return False
+            update = input("Should I update it for you? (Y/N)")
+            if update == "Y" or update == "y":
+                try:
+                    os.system('git pull master master')
+                except Exception as e:
+                    return f"Eroor: {e}"
+            else:
+                return("Ok :/")
+
         print("You have the latest version!")
         return True
     except Exception as e:

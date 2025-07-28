@@ -22,12 +22,12 @@ def update_checker():
                 if update == "Y" or update == "y":
                     try:
                         os.system('git pull master master')
+                        return("You have the latest version!")
                     except Exception as e:
                         return f"Eroor: {e}"
                 else:
                     return("Ok :/")
 
-            print("You have the latest version!")
             return True
         except Exception as e:
             print(f"Error checking version: {e}")

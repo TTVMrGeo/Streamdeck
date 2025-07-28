@@ -1,21 +1,27 @@
-# pip install PyGithub
-from github import Github
-import secret_stuff as s
+from secret_stuff import OWNER, REPO, GITHUB_TOKEN
+import requests
 
-def check_latest_github_version(current_version, token=None):
+url = f"https://api.github.com/repos/{OWNER}/{REPO}/releases/latest"
+
+headers = {
+    "Authorization": f"token {GITHUB_TOKEN}",
+    "Accept": "application/vnd.github+json"
+}
+
+def check_latest_github_version(current_version):
     try:
-        g = Github(token) if token else Github()
-        repo = g.get_repo(f"TTVMrGeo/Streamdeck-App")
-        latest_release = repo.get_latest_release()
-        print("a")
+        response = requests.get(url)
+        response.raise_for_status()
+        latest_release = response.json()
+        latest_version = latest_release['tag_name']
         
-        if latest_release.tag_name != current_version:
-            print(f"Update available: {latest_release.tag_name}")
+        if latest_version != current_version:
+            print(f"New version available: {latest_version} (Current: {current_version})")
             return False
-        print("You're up to date!")
+        print("You have the latest version!")
         return True
     except Exception as e:
         print(f"Error checking version: {e}")
         return False
     
-print(check_latest_github_version("v0.0.1", token=s.GITHUB_TOKEN))
+print(check_latest_github_version("v0"))

@@ -1,25 +1,20 @@
-import requests, json, secret_stuff
+from github import Github
+import secret_stuff as s
 
-def check_latest_version(current_version):
-    repo_owner = "TTVMrGeo"
-    repo_name = "Streamdeck-App"
-    
-    api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
-    
+def check_latest_github_version(current_version, token=None):
     try:
-        response = requests.get(api_url)
-        response.raise_for_status()
-        latest_release = response.json()
-        latest_version = latest_release['tag_name']
+        g = Github(token) if token else Github()
+        repo = g.get_repo(f"TTVMrGeo/Streamdeck-App")
+        latest_release = repo.get_latest_release()
+        print("a")
         
-        if latest_version != current_version:
-            print(f"New version available: {latest_version} (Current: {current_version})")
+        if latest_release.tag_name != current_version:
+            print(f"Update available: {latest_release.tag_name}")
             return False
-        print("You have the latest version!")
+        print("You're up to date!")
         return True
     except Exception as e:
         print(f"Error checking version: {e}")
         return False
-
-# Example usage
-check_latest_version("v1.0.0")
+    
+print(check_latest_github_version("v0.0.1", token=s.GITHUB_TOKEN))

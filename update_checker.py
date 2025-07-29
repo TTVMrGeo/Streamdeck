@@ -51,7 +51,7 @@ def update_check():
             
             if latest_version != current_version:
                 root.mainloop()
-                return f"Update available: {latest_version}"
+                return latest_version
         except Exception as e:
             return f"Error checking version: {e}"
 

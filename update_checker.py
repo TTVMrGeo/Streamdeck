@@ -13,9 +13,10 @@ def update_check():
             messagebox.showinfo("Update complete", "Update has been completed!")
             open("version.txt", "w").write(check_latest_github_version(VERSION))
             open("last_check.txt", "w").write(str(date.today()))
+            root.destroy()
         except Exception as e:
-            messagebox.showinfo("Update complete", f"Update has failed!\n{e}")
-        root.destroy()
+            messagebox.showinfo("Update incomplete", f"Update has failed!\n{e}")
+            root.destroy()
 
     def not_now():
         root.destroy()  # Simply close the window

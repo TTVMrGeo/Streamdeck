@@ -1,0 +1,23 @@
+<!-- web/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamdeck Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="/eel.js"></script>
+</head>
+<body>
+    <h1>Streamdeck settings!</h1>
+    <button onclick="callPython()">Check for updates</button>
+    <p id="output"></p>
+
+    <script type="text/javascript">
+        async function callPython() {
+            let result = await eel.update()();
+            document.getElementById('output').innerText = result;
+        }
+    </script>
+</body>
+</html>

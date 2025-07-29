@@ -4,13 +4,13 @@ import os, requests
 from secret_stuff import OWNER, REPO, GITHUB_TOKEN
 
 def update_check():
-    with open("version.md", "r") as md_file:
-        VERSION = md_file.read()
+    VERSION = open("version.txt", "r").read()
 
     def update_now():
         try:
             os.system('git pull master master')
             messagebox.showinfo("Update complete", "Update has been completed!")
+            open("version.txt", "w").write(check_latest_github_version(VERSION))
         except Exception as e:
             messagebox.showinfo("Update complete", f"Update has failed!\n{e}")
         root.destroy()

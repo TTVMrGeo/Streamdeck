@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import os, requests
+from datetime import date as date
 from secret_stuff import OWNER, REPO, GITHUB_TOKEN
 
 def update_check():
@@ -11,6 +12,7 @@ def update_check():
             os.system('git pull master master')
             messagebox.showinfo("Update complete", "Update has been completed!")
             open("version.txt", "w").write(check_latest_github_version(VERSION))
+            open("last_check.txt", "w").write(str(date.today()))
         except Exception as e:
             messagebox.showinfo("Update complete", f"Update has failed!\n{e}")
         root.destroy()
@@ -53,6 +55,7 @@ def update_check():
                 root.mainloop()
                 return latest_version
         except Exception as e:
-            return f"Error checking version: {e}"
+            print(f"Error checking version: {e}")
+            exit()
 
     return(check_latest_github_version(VERSION))

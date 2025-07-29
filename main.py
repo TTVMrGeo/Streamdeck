@@ -9,8 +9,7 @@ eel.init('html stuff')
 @eel.expose
 def update():
     if str(date.today()) != last:
-        open("last_check.txt", "w").write(str(date.today()))
-        return update_check()
+        return f"Update available: {update_check()}"
     else:
         return "Already checked for updates today."
 

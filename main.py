@@ -13,4 +13,4 @@ def update():
     else:
         return "Already checked for updates today."
 
-eel.start('index.html', size=(700, 500))
+eel.start('index.html', size=(1920, 1080))

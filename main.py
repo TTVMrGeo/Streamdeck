@@ -4,10 +4,6 @@ import eel
 
 last = open("last_check.txt", "r").read()
 
-# if str(date.today()) != last:
-#     print(update_check())
-#     open("last_check.txt", "w").write(str(date.today()))
-
 eel.init('html stuff')
 
 @eel.expose

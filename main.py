@@ -4,7 +4,7 @@ import eel
 
 last = open("last_check.txt", "r").read()
 
-eel.init('html stuff')
+eel.init('html')
 
 @eel.expose
 def update():
